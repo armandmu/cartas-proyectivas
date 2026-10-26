@@ -11,3 +11,13 @@
 .identity img{width:205px;max-height:67px;object-fit:contain}
 .landing .identity img{width:240px;max-height:78px}
 @media(max-width:900px){.identity img{width:150px;max-height:52px}}
+
+/* Galería accesible y ampliada únicamente para la cuenta del paciente */
+.layout.view-patient{grid-template-columns:minmax(370px,42%) minmax(0,1fr)}
+.layout.view-patient .sidebar{padding:20px;min-width:0}
+.layout.view-patient .stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-content:start;overflow-y:auto}
+.layout.view-patient .stack .mini{height:auto;width:100%;aspect-ratio:.67;border-radius:9px;overflow:hidden}
+.layout.view-patient .stack .mini img{width:100%;height:100%;object-fit:contain}
+.layout.view-patient .stack .mini .back{font-size:17px}
+.layout.view-patient .mainbar h2{font-size:21px}
+@media(max-width:850px){.layout.view-patient{grid-template-columns:1fr}.layout.view-patient .sidebar{max-height:55vh;min-height:280px}.layout.view-patient .stack{grid-template-columns:repeat(2,minmax(0,1fr))}.layout.view-patient .main{height:72vh}}

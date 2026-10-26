@@ -3,11 +3,11 @@ import {createClient} from '@supabase/supabase-js';
 import decks from './decks.json';
 const supabaseUrl=import.meta.env.VITE_SUPABASE_URL, supabaseKey=import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 const db=supabaseUrl&&supabaseKey?createClient(supabaseUrl,supabaseKey):null;
-const logo=import.meta.env.BASE_URL+'logo-angel-rull.webp';
+const logo=import.meta.env.BASE_URL+'brand-angel-rull.svg';
 const getDeck=id=>decks.find(x=>x.id===id)||decks[0];
 const numbers=id=>Array.from({length:getDeck(id).count},(_,i)=>String(i+1).padStart(3,'0'));
 const initial=(deckId='cope')=>({deckId,cards:[],order:numbers(deckId),mode:'open',limit:0,locked:false});
-const image=(deckId,id)=>import.meta.env.BASE_URL+'decks/'+deckId+'/'+id+'.webp';
+const image=(deckId,id)=>'/cartas-proyectivas/decks/'+deckId+'/'+id+'.webp';
 const safe=(n,a,b)=>Math.max(a,Math.min(b,n));
 function Photo({deckId,id,up=true}){const[missing,setMissing]=useState(false);useEffect(()=>setMissing(false),[deckId,id]);return up?(missing?<span className="missing">Carta {id}<small>Imagen no disponible</small></span>:<img src={image(deckId,id)} alt={'Carta '+id} draggable="false" onError={()=>setMissing(true)}/>):<span className="back">CARTAS<br/>PROYECTIVAS</span>}
 export default function App(){

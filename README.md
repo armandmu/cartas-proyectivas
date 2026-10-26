@@ -3,4 +3,4 @@ Aplicación compartida de cartas proyectivas. Siete barajas: COPE, Shame, Parcuv
 
 Las imágenes deben copiarse desde el paquete a `public/decks/` preservando las carpetas.
 
-**Prototipo:** validar permisos RLS, sincronización y privacidad antes de usar datos clínicos.
+**Seguridad:** verificar las políticas RLS, los controles de acceso y la privacidad antes de incorporar datos clínicos. Mantener los tableros sin datos personales.

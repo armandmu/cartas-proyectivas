@@ -21,6 +21,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Descomprimir barajas (si se ha subido el ZIP)
+        run: |
+          if [ -f cartas-proyectivas-imagenes.zip ]; then unzip -oq cartas-proyectivas-imagenes.zip -d .; fi
       - run: npm install --no-audit --no-fund
       - run: npm run build
         env:

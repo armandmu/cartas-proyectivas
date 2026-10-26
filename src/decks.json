@@ -1,0 +1,37 @@
+[
+  {
+    "id": "cope",
+    "name": "COPE",
+    "count": 86
+  },
+  {
+    "id": "shame",
+    "name": "Shame",
+    "count": 48
+  },
+  {
+    "id": "parcuve",
+    "name": "Parcuve",
+    "count": 40
+  },
+  {
+    "id": "recursos",
+    "name": "Recursos",
+    "count": 36
+  },
+  {
+    "id": "autocuidado",
+    "name": "Autocuidado",
+    "count": 30
+  },
+  {
+    "id": "estados-emocionales",
+    "name": "Estados emocionales",
+    "count": 36
+  },
+  {
+    "id": "sistemas-de-proteccion",
+    "name": "Sistemas de protección",
+    "count": 42
+  }
+]

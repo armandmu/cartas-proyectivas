@@ -35,14 +35,14 @@ jobs:
           test -s public/decks/sistemas-de-proteccion/001.webp
       - run: npm install --no-audit --no-fund
       - run: npm run build
+        env:
+          VITE_SUPABASE_URL: https://xddrmhperdrqxjicscsv.supabase.co
+          VITE_SUPABASE_PUBLISHABLE_KEY: sb_publishable_erU4mKonRBgk_N4H7N_SjQ_WMsFmkxw
       - name: Verificar cartas publicadas
         run: |
           test -s dist/decks/cope/001.webp
           test -s dist/decks/shame/001.webp
           test -s dist/brand-angel-rull.svg
-        env:
-          VITE_SUPABASE_URL: https://xddrmhperdrqxjicscsv.supabase.co
-          VITE_SUPABASE_PUBLISHABLE_KEY: sb_publishable_erU4mKonRBgk_N4H7N_SjQ_WMsFmkxw
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

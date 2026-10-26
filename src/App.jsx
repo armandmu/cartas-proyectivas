@@ -3,7 +3,7 @@ import {createClient} from '@supabase/supabase-js';
 import decks from './decks.json';
 const supabaseUrl=import.meta.env.VITE_SUPABASE_URL, supabaseKey=import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 const db=supabaseUrl&&supabaseKey?createClient(supabaseUrl,supabaseKey):null;
-const logo='https://raw.githubusercontent.com/armandmu/emdr-visual/main/assets/logo-angel-rull.png';
+const logo=import.meta.env.BASE_URL+'logo-angel-rull.webp';
 const getDeck=id=>decks.find(x=>x.id===id)||decks[0];
 const numbers=id=>Array.from({length:getDeck(id).count},(_,i)=>String(i+1).padStart(3,'0'));
 const initial=(deckId='cope')=>({deckId,cards:[],order:numbers(deckId),mode:'open',limit:0,locked:false});

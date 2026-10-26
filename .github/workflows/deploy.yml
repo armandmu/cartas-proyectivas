@@ -24,8 +24,22 @@ jobs:
       - name: Descomprimir barajas (si se ha subido el ZIP)
         run: |
           if [ -f cartas-proyectivas-imagenes.zip ]; then unzip -oq cartas-proyectivas-imagenes.zip -d .; fi
+      - name: Verificar cartas extraídas
+        run: |
+          test -s public/decks/cope/001.webp
+          test -s public/decks/shame/001.webp
+          test -s public/decks/parcuve/001.webp
+          test -s public/decks/recursos/001.webp
+          test -s public/decks/autocuidado/001.webp
+          test -s public/decks/estados-emocionales/001.webp
+          test -s public/decks/sistemas-de-proteccion/001.webp
       - run: npm install --no-audit --no-fund
       - run: npm run build
+      - name: Verificar cartas publicadas
+        run: |
+          test -s dist/decks/cope/001.webp
+          test -s dist/decks/shame/001.webp
+          test -s dist/brand-angel-rull.svg
         env:
           VITE_SUPABASE_URL: https://xddrmhperdrqxjicscsv.supabase.co
           VITE_SUPABASE_PUBLISHABLE_KEY: sb_publishable_erU4mKonRBgk_N4H7N_SjQ_WMsFmkxw

@@ -32,6 +32,23 @@ jobs:
             unzip -oq cartas-proyectivas-actualizacion-resilio.zip -d .
             echo 'Resilio actualizada y menú reordenado'
           fi
+      - name: Aplicar orden definitivo a las diez barajas
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const ids = ['cope','tandoo','resilio','shame','inner-active','parcuve','recursos','autocuidado','estados-emocionales','sistemas-de-proteccion'];
+          for (const path of ['src/decks.json','public/decks.json']) {
+            if (!fs.existsSync(path)) continue;
+            const items = JSON.parse(fs.readFileSync(path,'utf8'));
+            const map = new Map(items.map(x => [x.id,x]));
+            for (const [id,name,count] of [['tandoo','Tandoo',97],['resilio','Resilio',120],['inner-active','Inner Active',74]]) {
+              if (!map.has(id)) map.set(id,{id,name,count});
+            }
+            const result = ids.map(id => map.get(id));
+            if (result.some(x => !x)) throw new Error('Falta una baraja en '+path);
+            fs.writeFileSync(path, JSON.stringify(result,null,2)+'\n');
+          }
+          NODE
       - name: Verificar cartas extraídas
         run: |
           test -s public/decks/cope/001.webp

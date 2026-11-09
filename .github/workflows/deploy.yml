@@ -24,6 +24,10 @@ jobs:
       - name: Descomprimir barajas (si se ha subido el ZIP)
         run: |
           if [ -f cartas-proyectivas-imagenes.zip ]; then unzip -oq cartas-proyectivas-imagenes.zip -d .; fi
+          if [ -f cartas-proyectivas-actualizacion-inner-tandoo.zip ]; then
+            unzip -oq cartas-proyectivas-actualizacion-inner-tandoo.zip -d .
+            echo 'Inner Active y Tandoo actualizadas'
+          fi
       - name: Verificar cartas extraídas
         run: |
           test -s public/decks/cope/001.webp
@@ -33,6 +37,10 @@ jobs:
           test -s public/decks/autocuidado/001.webp
           test -s public/decks/estados-emocionales/001.webp
           test -s public/decks/sistemas-de-proteccion/001.webp
+          if [ -f cartas-proyectivas-actualizacion-inner-tandoo.zip ]; then
+            test -s public/decks/inner-active/074.webp
+            test -s public/decks/tandoo/097.webp
+          fi
       - run: npm install --no-audit --no-fund
       - run: npm run build
         env:
@@ -42,6 +50,10 @@ jobs:
         run: |
           test -s dist/decks/cope/001.webp
           test -s dist/decks/shame/001.webp
+          if [ -f cartas-proyectivas-actualizacion-inner-tandoo.zip ]; then
+            test -s dist/decks/inner-active/074.webp
+            test -s dist/decks/tandoo/097.webp
+          fi
           test -s dist/brand-angel-rull.svg
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

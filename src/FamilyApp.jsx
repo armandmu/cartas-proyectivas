@@ -301,9 +301,9 @@ export default function FamilyApp() {
   function exportScene() {
     const items = placed.map(f => {
       const t = templateOf(f.templateId);
-      const w = SCALE[t.size], cx = f.x * 12, cy = f.y * 7.1;
+      const w = SCALE[t.size], cx = 40 + f.x * 11.2, cy = 84 + f.y * 6.65;
       const k = w / 80;
-      return `<g transform="translate(${(cx - 40*k).toFixed(2)} ${(cy - 57*k).toFixed(2)}) scale(${k})"><ellipse cx="40" cy="107" rx="28" ry="5" fill="#dde4df"/><path d="M21 55 C25 49 33 47 40 47 C47 47 55 49 59 55 C66 66 69 86 68 103 Q40 111 12 103 C11 86 14 66 21 55Z" fill="${t.color}"/><ellipse cx="40" cy="27" rx="23" ry="24" fill="${t.color}"/><circle cx="32" cy="28" r="2" fill="#36443d"/><circle cx="48" cy="28" r="2" fill="#36443d"/><path d="M34 37 Q40 40.5 46 37" stroke="#36443d" stroke-width="2" fill="none"/></g><text x="${cx}" y="${cy+52}" font-size="17" fill="#31463c" text-anchor="middle" font-family="sans-serif">${xml(f.label)}</text>`;
+      return `<g transform="translate(${(cx - 40*k).toFixed(2)} ${(cy - 57*k).toFixed(2)}) scale(${k})"><ellipse cx="40" cy="107" rx="28" ry="5" fill="#dde4df"/><path d="M21 55 C25 49 33 47 40 47 C47 47 55 49 59 55 C66 66 69 86 68 103 Q40 111 12 103 C11 86 14 66 21 55Z" fill="${t.color}"/><ellipse cx="40" cy="27" rx="23" ry="24" fill="${t.color}"/><circle cx="32" cy="28" r="2" fill="#36443d"/><circle cx="48" cy="28" r="2" fill="#36443d"/><path d="M34 37 Q40 40.5 46 37" stroke="#36443d" stroke-width="2" fill="none"/></g><text x="${cx}" y="${cy+57*k+22}" font-size="17" fill="#31463c" text-anchor="middle" font-family="sans-serif">${xml(f.label)}</text>`;
     }).join('');
     const title = VIEWS.find(v => v.id === view)?.label || 'Escultura familiar';
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#fbfaf5"/><text x="55" y="55" fill="#283e32" font-size="31" font-family="sans-serif">Escultura familiar · ${xml(title)}</text><rect x="40" y="84" width="1120" height="665" rx="24" fill="#fff" stroke="#d9e3d9" stroke-width="2"/>${items}</svg>`;

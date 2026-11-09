@@ -28,6 +28,10 @@ jobs:
             unzip -oq cartas-proyectivas-actualizacion-inner-tandoo.zip -d .
             echo 'Inner Active y Tandoo actualizadas'
           fi
+          if [ -f cartas-proyectivas-actualizacion-resilio.zip ]; then
+            unzip -oq cartas-proyectivas-actualizacion-resilio.zip -d .
+            echo 'Resilio actualizada y menú reordenado'
+          fi
       - name: Verificar cartas extraídas
         run: |
           test -s public/decks/cope/001.webp
@@ -41,6 +45,10 @@ jobs:
             test -s public/decks/inner-active/074.webp
             test -s public/decks/tandoo/097.webp
           fi
+          if [ -f cartas-proyectivas-actualizacion-resilio.zip ]; then
+            test -s public/decks/resilio/001.webp
+            test -s public/decks/resilio/120.webp
+          fi
       - run: npm install --no-audit --no-fund
       - run: npm run build
         env:
@@ -53,6 +61,9 @@ jobs:
           if [ -f cartas-proyectivas-actualizacion-inner-tandoo.zip ]; then
             test -s dist/decks/inner-active/074.webp
             test -s dist/decks/tandoo/097.webp
+          fi
+          if [ -f cartas-proyectivas-actualizacion-resilio.zip ]; then
+            test -s dist/decks/resilio/120.webp
           fi
           test -s dist/brand-angel-rull.svg
       - uses: actions/configure-pages@v5

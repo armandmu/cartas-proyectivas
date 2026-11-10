@@ -32,11 +32,16 @@ jobs:
             unzip -oq cartas-proyectivas-actualizacion-resilio.zip -d .
             echo 'Resilio actualizada y menú reordenado'
           fi
-      - name: Aplicar orden definitivo a las diez barajas
+          if [ -f cartas-proyectivas-actualizacion-dixit.zip ]; then
+            unzip -oq cartas-proyectivas-actualizacion-dixit.zip -d .
+            echo 'Dixit: 144 imágenes extraídas'
+          fi
+      - name: Aplicar orden definitivo a las barajas
         run: |
           node - <<'NODE'
           const fs = require('fs');
-          const ids = ['cope','tandoo','resilio','shame','inner-active','parcuve','recursos','autocuidado','estados-emocionales','sistemas-de-proteccion'];
+          const hasDixit = fs.existsSync('public/decks/dixit/144.webp');
+          const ids = ['cope','tandoo','resilio','shame','inner-active',...(hasDixit?['dixit']:[]),'parcuve','recursos','autocuidado','estados-emocionales','sistemas-de-proteccion'];
           for (const path of ['src/decks.json','public/decks.json']) {
             if (!fs.existsSync(path)) continue;
             const items = JSON.parse(fs.readFileSync(path,'utf8'));
@@ -44,6 +49,7 @@ jobs:
             for (const [id,name,count] of [['tandoo','Tandoo',97],['resilio','Resilio',120],['inner-active','Inner Active',74]]) {
               if (!map.has(id)) map.set(id,{id,name,count});
             }
+            if (hasDixit && !map.has('dixit')) map.set('dixit',{id:'dixit',name:'Dixit',count:144});
             const result = ids.map(id => map.get(id));
             if (result.some(x => !x)) throw new Error('Falta una baraja en '+path);
             fs.writeFileSync(path, JSON.stringify(result,null,2)+'\n');
@@ -66,6 +72,10 @@ jobs:
             test -s public/decks/resilio/001.webp
             test -s public/decks/resilio/120.webp
           fi
+          if [ -f cartas-proyectivas-actualizacion-dixit.zip ]; then
+            for i in $(seq -w 1 144); do test -s public/decks/dixit/$(printf '%03d' "$((10#$i))").webp; done
+            node -e "const d=require('./src/decks.json');if(d.length!==11||d[5].id!=='dixit'||d[5].count!==144)process.exit(1)"
+          fi
       - run: npm install --no-audit --no-fund
       - run: npm run build
         env:
@@ -81,6 +91,10 @@ jobs:
           fi
           if [ -f cartas-proyectivas-actualizacion-resilio.zip ]; then
             test -s dist/decks/resilio/120.webp
+          fi
+          if [ -f cartas-proyectivas-actualizacion-dixit.zip ]; then
+            test -s dist/decks/dixit/001.webp
+            test -s dist/decks/dixit/144.webp
           fi
           test -s dist/brand-angel-rull.svg
       - uses: actions/configure-pages@v5
